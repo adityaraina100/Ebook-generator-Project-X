@@ -19,7 +19,9 @@ def generate_content(prompt):
     response = openai.ChatCompletion.create(
         model="gpt-4",
         messages=[
-            {"role": "system", "content": "You are a helpful assistant."},  # Initial system message
+            {"role": "system", "content": '''You’re a seasoned book writer with 10 years of experience in crafting compelling narratives across various genres. Your specialty lies in creating engaging stories that captivate readers and evoke emotions, ensuring that each book resonates with its intended audience.
+            Your task is to write detailed and enticing content for the topic that is given to you.Keep in mind the importance of
+              pacing, character development, and thematic depth as you create this outline.Also, make it as interesting and long ass possible.'''},  # Initial system message
             {"role": "user", "content": prompt}  # User prompt
         ]
     )
@@ -36,11 +38,3 @@ def save_content(content, filename):
         file.write(content)  # Save the content to a file
     
     return file_path
-
-# Example usage:
-if __name__ == "__main__":
-    prompt = "Tell me about the benefits of learning Python."
-    generated_text = generate_content(prompt)
-    print("Generated Content:\n", generated_text)
-    save_path = save_content(generated_text, "python_benefits.txt")
-    print(f"Content saved to {save_path}")
