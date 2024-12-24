@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.services.ebook_service import  generate_chapters, generateChapterContent
+from app.services.ebook_service import  generate_chapters, generateChapterContent, convert_text_to_pdf
 from app.services.openai_service import save_content
 import ast
 # Create Blueprint
@@ -24,7 +24,7 @@ def generate_book():
 
         for chapter in chapters:
             chapter = chapter.strip() 
-            if not chapter:  # Skip empty lines
+            if not chapter:  
                 continue
             with open("saved_books/finalbook.txt", "r") as file:
                 story = file.read()
@@ -32,7 +32,7 @@ def generate_book():
             
             chapter_content = generateChapterContent(chapter,story )
             save_content(chapter_content, "finalbook.txt",'a')
-        
+        convert_text_to_pdf("saved_books/finalbook.txt", "saved_books/finalbook.pdf")
         return jsonify({"message": "Book generated successfully!", "link": "/path/to/finalbook.txt"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
