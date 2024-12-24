@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
-from app.services.ebook_service import  save_content, generate_chapters, generateChapterContent
-import json
+from app.services.ebook_service import  generate_chapters, generateChapterContent
+from app.services.openai_service import save_content
 import ast
 # Create Blueprint
 generate_bp = Blueprint('generate', __name__)
