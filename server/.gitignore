@@ -13,6 +13,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+#saved books
+saved_books/
+
+
 # C extensions
 *.so
 

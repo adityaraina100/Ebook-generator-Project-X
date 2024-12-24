@@ -11,6 +11,7 @@ def generate_chapters(title, target_audience):
         f"Return only a array of object with chapter names for a book titled '{title}' "
         f"suitable for readers aged {target_audience}. Do not include any explanation or additional text."
         f"in this format ['chapter1 name', 'Chapter2 name']"
+        f"Keep number of chapters stricly 6."
     )
 
     try:
