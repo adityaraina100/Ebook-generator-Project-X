@@ -22,16 +22,16 @@ def generate_book():
             content = file.read()
             chapters = ast.literal_eval(content)
 
-        with open("saved_books/finalbook.txt", "r") as file:
-                story = file.read()
         for chapter in chapters:
             chapter = chapter.strip() 
             if not chapter:  # Skip empty lines
                 continue
+            with open("saved_books/finalbook.txt", "r") as file:
+                story = file.read()
             
             
             chapter_content = generateChapterContent(chapter,story )
-            save_content(chapter_content, chapter + ".txt")
+            save_content(chapter_content, "finalbook.txt",'a')
         
         return jsonify({"message": "Book generated successfully!", "link": "/path/to/finalbook.txt"}), 200
     except Exception as e:

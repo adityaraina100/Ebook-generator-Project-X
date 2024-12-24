@@ -30,11 +30,11 @@ def generate_content(prompt):
 
 NEW_OUTPUT_DIR = 'saved_books'
 
-def save_content(content, filename):
+def save_content(content, filename,feature='w'):
     os.makedirs(NEW_OUTPUT_DIR, exist_ok=True)  # Create directory if it doesn't exist
     file_path = os.path.join(NEW_OUTPUT_DIR, filename)
     
-    with open(file_path, 'w') as file:
+    with open(file_path, feature) as file:
         file.write(content)  # Save the content to a file
     
     return file_path
