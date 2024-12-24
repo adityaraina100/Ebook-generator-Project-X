@@ -1,4 +1,4 @@
-from app.services.openai_service import generate_content, save_content
+from app.services.openai_service import generate_content
 
 def generate_chapters(title, target_audience):
     """
