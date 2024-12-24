@@ -1,4 +1,7 @@
 from app.services.openai_service import generate_content
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from reportlab.lib.styles import ParagraphStyle
+from reportlab.lib.pagesizes import letter
 
 def generate_chapters(title, target_audience):
     """
@@ -49,3 +52,44 @@ def generateChapterContent(chapterName, story, wordCount=2000):
         
     except Exception as e:
         raise Exception(f"Error generating chapter content: {str(e)}")
+    
+
+def convert_text_to_pdf(input_file_path, output_file_path):
+    try:
+        # Read the input file
+        with open(input_file_path, 'r', encoding='utf-8') as file:
+            input_text = file.read()
+        
+        # Create PDF document
+        doc = SimpleDocTemplate(
+            output_file_path,
+            pagesize=letter,
+            rightMargin=72,
+            leftMargin=72,
+            topMargin=72,
+            bottomMargin=72
+        )
+        
+        # Define style
+        style = ParagraphStyle(
+            'Normal',
+            fontSize=12,
+            leading=16
+        )
+        
+        # Process content
+        story = []
+        paragraphs = input_text.split('\n\n')
+        for paragraph in paragraphs:
+            if paragraph.strip():
+                p = Paragraph(paragraph.replace('\n', '<br />'), style)
+                story.append(p)
+                story.append(Spacer(1, 12))
+        
+        # Build PDF
+        doc.build(story)
+        return True
+        
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        return False
