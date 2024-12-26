@@ -13,7 +13,6 @@ def generate_chapters(title, target_audience):
 
     try:
         response = generate_content(prompt)
-        # Since response is already in JSON format, it will be automatically jsonified
         return response
         
     except Exception as e:
@@ -43,11 +42,9 @@ def generateChapterContent(chapterName, story, wordCount=2000):
 
 def convert_text_to_pdf(input_file_path, output_file_path):
     try:
-        # Read the input file
         with open(input_file_path, 'r', encoding='utf-8') as file:
             input_text = file.read()
         
-        # Create PDF document
         doc = SimpleDocTemplate(
             output_file_path,
             pagesize=letter,
@@ -57,14 +54,12 @@ def convert_text_to_pdf(input_file_path, output_file_path):
             bottomMargin=72
         )
         
-        # Define style
         style = ParagraphStyle(
             'Normal',
             fontSize=12,
             leading=16
         )
         
-        # Process content
         story = []
         paragraphs = input_text.split('\n\n')
         for paragraph in paragraphs:
@@ -73,7 +68,6 @@ def convert_text_to_pdf(input_file_path, output_file_path):
                 story.append(p)
                 story.append(Spacer(1, 12))
         
-        # Build PDF
         doc.build(story)
         return True
         
