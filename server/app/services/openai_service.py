@@ -1,8 +1,7 @@
 import os
-from dotenv import load_dotenv # type: ignore
+from dotenv import load_dotenv 
 from openai import OpenAI
 
-# Load environment variables from .env file
 load_dotenv()
 
 
@@ -14,25 +13,21 @@ def generate_content(prompt):
     completion = client.chat.completions.create(
         model="meta-llama/Llama-3.2-3B-Instruct", 
         messages=[
-                {"role": "system", "content": "You’re a seasoned book writer with 10 years of experience in crafting compelling narratives across various genres. Your specialty lies in creating engaging stories that captivate readers and evoke emotions, ensuring that each book resonates with its intended audience.Your task is to write detailed and enticing content for the topic that is given to you.Keep in mind the importance of pacing, character development, and thematic depth as you create this outline.Also, make it as interesting and long as possible.Don't use any special characters or language other than English"},  # Initial system message
-                {"role": "user", "content": prompt}  # User prompt
+                {"role": "system", "content": "You’re a seasoned book writer with 10 years of experience in crafting compelling narratives across various genres. Your specialty lies in creating engaging stories that captivate readers and evoke emotions, ensuring that each book resonates with its intended audience.Your task is to write detailed and enticing content for the topic that is given to you.Keep in mind the importance of pacing, character development, and thematic depth as you create this outline.Also, make it as interesting and long as possible.Don't use any special characters or language other than English"},  
+                {"role": "user", "content": prompt} 
             ]
             ,
         max_tokens=500
     )
-    print("\n\n\n\n\n")
-    print(completion.choices[0].message.content)
     return completion.choices[0].message.content
-
-# Set your OpenAI API key
 NEW_OUTPUT_DIR = 'saved_books'
 
 def save_content(content, filename,feature='w'):
-    os.makedirs(NEW_OUTPUT_DIR, exist_ok=True)  # Create directory if it doesn't exist
+    os.makedirs(NEW_OUTPUT_DIR, exist_ok=True) 
     file_path = os.path.join(NEW_OUTPUT_DIR, filename)
     
     with open(file_path, feature) as file:
-        file.write(content)  # Save the content to a file
+        file.write(content)  
     
     return file_path
 
