@@ -1,33 +1,30 @@
 import os
 from dotenv import load_dotenv # type: ignore
-import openai # type: ignore
+from openai import OpenAI
 
 # Load environment variables from .env file
 load_dotenv()
 
-# Set your OpenAI API key
-openai_api_key = os.getenv("OPEN_AI_KEY")
 
+client = OpenAI(
+	base_url="https://api-inference.huggingface.co/v1/",
+	api_key=os.getenv("HUGGINGFACE_API_KEY")
+)
 def generate_content(prompt):
-    """
-    Generate content using OpenAI GPT model.
-    """
-
-    # Set the OpenAI API key before making a request
-    openai.api_key = openai_api_key
-
-    response = openai.ChatCompletion.create(
-        model="gpt-4",
+    completion = client.chat.completions.create(
+        model="meta-llama/Llama-3.2-3B-Instruct", 
         messages=[
-            {"role": "system", "content": '''You’re a seasoned book writer with 10 years of experience in crafting compelling narratives across various genres. Your specialty lies in creating engaging stories that captivate readers and evoke emotions, ensuring that each book resonates with its intended audience.
-            Your task is to write detailed and enticing content for the topic that is given to you.Keep in mind the importance of
-              pacing, character development, and thematic depth as you create this outline.Also, make it as interesting and long ass possible.'''},  # Initial system message
-            {"role": "user", "content": prompt}  # User prompt
-        ]
+                {"role": "system", "content": "You’re a seasoned book writer with 10 years of experience in crafting compelling narratives across various genres. Your specialty lies in creating engaging stories that captivate readers and evoke emotions, ensuring that each book resonates with its intended audience.Your task is to write detailed and enticing content for the topic that is given to you.Keep in mind the importance of pacing, character development, and thematic depth as you create this outline.Also, make it as interesting and long as possible.Don't use any special characters or language other than English"},  # Initial system message
+                {"role": "user", "content": prompt}  # User prompt
+            ]
+            ,
+        max_tokens=500
     )
-    
-    return response['choices'][0]['message']['content'].strip()
+    print("\n\n\n\n\n")
+    print(completion.choices[0].message.content)
+    return completion.choices[0].message.content
 
+# Set your OpenAI API key
 NEW_OUTPUT_DIR = 'saved_books'
 
 def save_content(content, filename,feature='w'):
@@ -38,3 +35,5 @@ def save_content(content, filename,feature='w'):
         file.write(content)  # Save the content to a file
     
     return file_path
+
+

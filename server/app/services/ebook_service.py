@@ -4,9 +4,6 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.pagesizes import letter
 
 def generate_chapters(title, target_audience):
-    """
-    Generates an array of chapter names based on the book title and target audience.
-    """
     prompt = (
         f"Return only a array of object with chapter names for a book titled '{title}' "
         f"suitable for readers aged {target_audience}. Do not include any explanation or additional text."
@@ -24,17 +21,6 @@ def generate_chapters(title, target_audience):
     
 
 def generateChapterContent(chapterName, story, wordCount=2000):
-    """
-    Generates content for a specific chapter based on the chapter name and story text.
-    
-    Args:
-        chapterName (str): Name of the chapter to generate
-        story (str): Full story text from finalbook.txt
-        wordCount (int): Target word count for the chapter (default: 2000)
-    
-    Returns:
-        str: Generated chapter content
-    """
     prompt = (
         f"You are writing a chapter titled '{chapterName}' for a book. "
         f"Here is the current story context:\n\n{story}\n\n"

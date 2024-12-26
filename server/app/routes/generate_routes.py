@@ -50,6 +50,7 @@ def generate_book():
         # Generate chapter content
         for chapter in chapters:
             chapter = chapter.strip()
+            print("Chapter ",chapter)
             if not chapter:
                 continue
                 
@@ -60,6 +61,7 @@ def generate_book():
             save_content(chapter_content, final_book_path, 'a')
             
         # Convert to PDF
+        print("bhai mai pahunch gaya")
         convert_text_to_pdf(os.path.join(books_dir, final_book_path), 
                           os.path.join(books_dir, final_pdf_path))
         
