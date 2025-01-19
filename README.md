@@ -1,4 +1,4 @@
-# Ebook-generator-Project-X
+# PromptBook AI-Smart Ebook generator
 A smart automated E-book generator which utilizes the Llama-AI model, dynamic indexing, context-based content generation, pdf generation, migration over cloud and delivering a complete product all just in a single click.
 
 **WorkFlow**
