@@ -6,6 +6,9 @@ A smart automated E-book generator which utilizes the Llama-AI model, dynamic in
 
 **Installation**
 Even though the website will be hosted soon and no installation is required, v1 release is still only on the system.
+
 ``pip install -r requirements.txt``
+
+
 **Live Demo**
 ***Coming Soon***
