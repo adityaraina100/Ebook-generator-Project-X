@@ -134,6 +134,7 @@ celerybeat.pid
 
 # Environments
 .venv
+.aditya
 env/
 venv/
 ENV/
